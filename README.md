@@ -10,7 +10,7 @@ $ pip install fxplotter
 
 ## Usage
 
-- YOu will need to set your api key first:
+- You will need to set your api key first:
 ```python
 from fxplotter import fxplotter
 fxplotter.api_key = ''

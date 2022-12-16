@@ -5,6 +5,9 @@ description = "A package to to import foreign exchange currency series and plot 
 authors = ["Ahmet Besiroglu"]
 license = "MIT"
 readme = "README.md"
+documentation = 'https://fxplotter.readthedocs.io'
+homepage = "https://github.com/QMSS-G5072-2022/fxplotter"
+repository = "https://github.com/QMSS-G5072-2022/fxplotter"
 
 [tool.poetry.dependencies]
 python = "^3.9"
