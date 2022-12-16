@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fxplotter"
-version = "0.1.1"
+version = "1.0.0"
 description = "A package to to import foreign exchange currency series and plot them."
 authors = ["Ahmet Besiroglu"]
 license = "MIT"
