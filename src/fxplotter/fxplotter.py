@@ -4,7 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-api_key = "AhQR6PX0Pj"
+api_key = ""
 api_base_url = "https://evds2.tcmb.gov.tr/service/evds/"
 
 codebook = {'Date': 'Tarih',
@@ -75,16 +75,16 @@ def _make_request(url, params={}):
         )
         
 def get_series(detail=False, raw=False):
-        """
-        The function returns dataframe of series which belongs to given data group.
-        Because of default detail parameter is False, only return "SERIE_CODE", "SERIE_NAME" and "START_DATE" value.
-        """
-        series = _make_request('https://evds2.tcmb.gov.tr/service/evds/serieList/',\
-                                    params = {'key' : api_key, 'type' : 'json', 'code' : 'bie_dkdovytl'})
-        series = json.loads(series)
-        df = pd.DataFrame(series)
-        df = df['SERIE_CODE'].str[6:9].unique()
-        return df
+    """
+    The function returns dataframe of series which belongs to given data group.
+    Because of default detail parameter is False, only return "SERIE_CODE", "SERIE_NAME" and "START_DATE" value.
+    """
+    series = _make_request('https://evds2.tcmb.gov.tr/service/evds/serieList/',\
+                                params = {'key' : api_key, 'type' : 'json', 'code' : 'bie_dkdovytl'})
+    series = json.loads(series)
+    df = pd.DataFrame(series)
+    df = df['SERIE_CODE'].str[6:9].unique()
+    return df
 
 
 def get_data(
