@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 import json
-import matplotlib.pyplot as plt
 import plotly.express as px
 
 api_key = None
