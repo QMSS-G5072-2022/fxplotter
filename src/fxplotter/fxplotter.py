@@ -4,7 +4,7 @@ import json
 import matplotlib.pyplot as plt
 import plotly.express as px
 
-api_key = ""
+api_key = None
 api_base_url = "https://evds2.tcmb.gov.tr/service/evds/"
 
 codebook = {'Date': 'Tarih',
@@ -61,7 +61,6 @@ def _make_request(url, params={}):
     """
     An internal function that makes the call to the API
     """
-
     params = _param_generator(params)
 
     request = requests.Session().get(url + params)
@@ -69,7 +68,7 @@ def _make_request(url, params={}):
         return request.content
     else:
         raise ConnectionError(
-            "Connection error, please check your request. Url:{}".format(
+            "Connection error, please check your API key. Url:{}".format(
                 request.url
             )
         )
@@ -79,6 +78,10 @@ def get_series(detail=False, raw=False):
     The function returns dataframe of series which belongs to given data group.
     Because of default detail parameter is False, only return "SERIE_CODE", "SERIE_NAME" and "START_DATE" value.
     """
+
+    if api_key is None:
+        return
+
     series = _make_request('https://evds2.tcmb.gov.tr/service/evds/serieList/',\
                                 params = {'key' : api_key, 'type' : 'json', 'code' : 'bie_dkdovytl'})
     series = json.loads(series)
