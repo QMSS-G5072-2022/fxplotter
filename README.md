@@ -5,7 +5,7 @@ A package to to import foreign exchange currency series and plot them.
 ## Installation
 
 ```bash
-$ pip install fxplotter
+$ pip install -i https://test.pypi.org/simple/ fxplotter==1.0.0 --no-dependencies
 ```
 
 ## Usage
@@ -14,6 +14,11 @@ $ pip install fxplotter
 ```python
 from fxplotter import fxplotter
 fxplotter.api_key = ''
+```
+
+- You can access the available currencies with:
+```python
+fxplotter.get_series()
 ```
 
 ## Contributing
