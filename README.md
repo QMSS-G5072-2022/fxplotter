@@ -9,16 +9,36 @@ $ pip install -i https://test.pypi.org/simple/ fxplotter==1.0.0 --no-dependencie
 ```
 
 ## Usage
+- First get your API key from evds website https://evds2.tcmb.gov.tr/index.php?/evds/login  by creating an account. 
 
-- You will need to set your api key first:
+- You will need to set your api key first to run the package:
 ```python
 from fxplotter import fxplotter
 fxplotter.api_key = ''
 ```
 
-- You can access the available currencies with:
+- You can access to the available currencies with the following:
+
 ```python
 fxplotter.get_series()
+```
+
+- You can get the historical data for the specified list of currencies and a date window:
+
+```python
+fxplotter.get_series()
+```
+
+- You can also plot them interactively. For example:
+
+```python
+fxplotter.plot_data(['USD', 'EUR', 'JPY'],startdate="01-01-2018", enddate="01-12-2022")
+```
+
+- Or, you can also plot them in a normalized fashion:
+
+```python
+fxplotter.plot_normalized_data(['USD', 'EUR', 'JPY'],startdate="01-01-2018", enddate="01-12-2022")
 ```
 
 ## Contributing
