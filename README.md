@@ -26,7 +26,7 @@ fxplotter.get_series()
 - You can get the historical data for the specified list of currencies and a date window:
 
 ```python
-fxplotter.get_series()
+fxplotter.get_data(['USD', 'EUR', 'JPY'],startdate="01-01-2018", enddate="01-12-2022")
 ```
 
 - You can also plot them interactively. For example:
