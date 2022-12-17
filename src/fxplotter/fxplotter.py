@@ -74,8 +74,7 @@ def _make_request(url, params={}):
         
 def get_series(detail=False, raw=False):
     """
-    The function returns dataframe of series which belongs to given data group.
-    Because of default detail parameter is False, only return "SERIE_CODE", "SERIE_NAME" and "START_DATE" value.
+    The function returns list of currencies which are available in CBRT.
     """
 
     if api_key is None:
@@ -100,13 +99,9 @@ def get_data(
 ):
     """
     The function returns data of the given series data. Series must be typed as list.
-    Also, set parameter raw=False to return dictionary format.
-    If aggregation_types and formulas,
-        - not defined, API returns value aggregated and calculated default aggregations type and formula for the series.
-        - defined as a string, given aggregation type and formula applied for all given series
-        - defined as a list, given aggregation types and formulas applied for given series respectively.
+    And, set parameter raw=False to return dictionary format.
     Available aggregation types are avg, min, max, first, last, sum.
-    Available formulas are the following:
+    Formulas are the following:
         Percentage change: 1
         Difference: 2
         Yearly percentage change: 3
@@ -115,7 +110,7 @@ def get_data(
         Difference in comparison with end of previous year: 6
         Moving average: 7
         Moving total: 8
-    It is possible to set frequency of data. Possible frequencies are the following:
+    One can also set the frequency of data. Possible frequencies are:
         Daily: 1
         Workday: 2
         Weekly: 3
@@ -124,6 +119,26 @@ def get_data(
         Quarterly: 6
         Six month: 7
         Yearly: 8
+
+    Parameters
+    ----------
+    series : pandas.core.frame.DataFrame
+      A series of pandas
+    startdate : string
+      A date string DD-MM-YYYY
+    end : string
+      A date string DD-MM-YYYY
+
+    Returns
+    -------
+    A pandas data frame
+      
+
+    Examples
+    --------
+    >>> from fxplotter import fxplotter
+    >>> fxplotter.api_key = ''
+    >>> fxplotter.get_data(['USD', 'EUR'],startdate="01-01-2018", enddate="01-12-2022")
     """
     ticker = series
     print(ticker)
@@ -140,7 +155,7 @@ def get_data(
 
     series_count = len(series)
 
-    # Set aggregation type
+    # Set aggregation 
     if aggregation_types == "":
         # Default aggregation method
         aggregation_type_param = ""
@@ -178,7 +193,7 @@ def get_data(
         },
     )
     data = json.loads(data)["items"]
-    # If raw is true return only json results.
+    # If raw is true return json results.
     if raw:
         return data
     # Numeric values in json data is defined as text. To fix this problem, set dtype="float"
@@ -205,15 +220,10 @@ def plot_data(
     raw=False,
 ):
     """
-    The function returns data of the given series data. Series must be typed as list.
-    Also, set parameter raw=False to return dictionary format.
+    The function plots the data of the given currency series. Series must be typed as list.
     If end date not defined, end date set as equal to start date
-    If aggregation_types and formulas,
-        - not defined, API returns value aggregated and calculated default aggregations type and formula for the series.
-        - defined as a string, given aggregation type and formula applied for all given series
-        - defined as a list, given aggregation types and formulas applied for given series respectively.
     Available aggregation types are avg, min, max, first, last, sum.
-    Available formulas are the following:
+    Formulas are the following:
         Percentage change: 1
         Difference: 2
         Yearly percentage change: 3
@@ -222,7 +232,7 @@ def plot_data(
         Difference in comparison with end of previous year: 6
         Moving average: 7
         Moving total: 8
-    It is possible to set frequency of data. Possible frequencies are the following:
+    One can also set the frequency of data. Possible frequencies are:
         Daily: 1
         Workday: 2
         Weekly: 3
@@ -231,6 +241,26 @@ def plot_data(
         Quarterly: 6
         Six month: 7
         Yearly: 8
+
+    Parameters
+    ----------
+    series : pandas.core.frame.DataFrame
+      A series of pandas
+    startdate : string
+      A date string DD-MM-YYYY
+    end : string
+      A date string DD-MM-YYYY
+
+    Returns
+    -------
+    number
+      A plot to be shown()
+
+    Examples
+    --------
+    >>> from fxplotter import fxplotter
+    >>> fxplotter.api_key = ''
+    >>> fxplotter.plot_data(['USD', 'EUR'],startdate="01-01-2018", enddate="01-12-2022")
     """
     
     df = get_data(
@@ -264,41 +294,10 @@ def plot_normalized_data(
     raw=False,
 ):
     """
-    The function returns data of the given series data
-
-    Parameters
-    ----------
-    series : pandas.core.frame.DataFrame
-      A series of pandas
-    startdate : string
-      A date string YYYY-MM-DD
-    end : string
-      A date string YYYY-MM-DD
-
-    Returns
-    -------
-    number
-      A plot to be show()
-
-    Examples
-    --------
-    >>> from qmsspkg import qmsspkg
-    >>> a = pd.Categorical(["character", "hits", "your", "eyeballs"])
-    >>> b = pd.Categorical(["but", "integer", "where it", "counts"])
-    >>> qmsspkg.catbind(a, b)
-    [character, hits, your, eyeballs, but, integer, where it, counts]
-    Categories (8, object): [but, character, counts,
-    eyeballs, hits, integer, where it, your]
-
-    The function returns data of the given series data. Series must be typed as list.
-    Also, set parameter raw=False to return dictionary format.
+    The function plots the normalized data of the given currency series. Series must be typed as list.
     If end date not defined, end date set as equal to start date
-    If aggregation_types and formulas,
-        - not defined, API returns value aggregated and calculated default aggregations type and formula for the series.
-        - defined as a string, given aggregation type and formula applied for all given series
-        - defined as a list, given aggregation types and formulas applied for given series respectively.
     Available aggregation types are avg, min, max, first, last, sum.
-    Available formulas are the following:
+    Formulas are the following:
         Percentage change: 1
         Difference: 2
         Yearly percentage change: 3
@@ -307,7 +306,7 @@ def plot_normalized_data(
         Difference in comparison with end of previous year: 6
         Moving average: 7
         Moving total: 8
-    It is possible to set frequency of data. Possible frequencies are the following:
+    One can also set the frequency of data. Possible frequencies are:
         Daily: 1
         Workday: 2
         Weekly: 3
@@ -316,6 +315,26 @@ def plot_normalized_data(
         Quarterly: 6
         Six month: 7
         Yearly: 8
+
+    Parameters
+    ----------
+    series : pandas.core.frame.DataFrame
+      A series of pandas
+    startdate : string
+      A date string DD-MM-YYYY
+    end : string
+      A date string DD-MM-YYYY
+
+    Returns
+    -------
+    number
+      A plot to be shown()
+
+    Examples
+    --------
+    >>> from fxplotter import fxplotter
+    >>> fxplotter.api_key = ''
+    >>> fxplotter.plot_normalized_data(['USD', 'EUR'],startdate="01-01-2018", enddate="01-12-2022")
     """
     
     df = get_data(
